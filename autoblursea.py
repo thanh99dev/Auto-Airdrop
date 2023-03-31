@@ -16,9 +16,9 @@ import time
 
 ref = 'https://blursea.io/'
 # webrd = 'https://vanity-eth.tk/'
-
+ii = 1
 h = 0
-ii1 = int(input("So wallet ao can cheat tren 1 Wallet?: "))
+check0 = '#withdraw'
 check1 = '//*[@id="airdrop-form"]/div/input'
 check2 = '//*[@id="airdrop-form"]/div/button'
 check3 = '//*[@id="airdrop-block"]/div/div[1]/span[2]'
@@ -65,24 +65,42 @@ with open('data.csv') as f:
         reader = csv.reader(f)
         for i in reader:
             swap = l[h][1]
+            swap2 = l[h][0]
+            print(swap)
+            print(swap2)
+
             print("Dang Auto Cho Wallet: ",swap)
             h += 1
-
+            time.sleep(1)
             driver = webdriver.Chrome(executable_path="C:/Users/lehuy/Documents/cd/chromedriver.exe")
             driver.get(ref)
-            time.sleep(2)
+            time.sleep(1)
             print('ok 1')
             cs1 = driver.find_element(By.XPATH,check1)
             cs1.send_keys(swap)
+            time.sleep(1)
             ip2 = driver.find_element(By.XPATH, check5)
-            time.sleep(3)
-            ip2.click()
-            time.sleep(3000)
+            time.sleep(1)
+            driver.execute_script("arguments[0].click();", ip2)
+            time.sleep(2)
+            ii1 = driver.find_element(By.CSS_SELECTOR,'#airdrop-block > div.col-12.col-sm-10.col-md-9.col-lg-8 > div.row.mt-4.text-center.justify-content-between > div:nth-child(2) > div.heading-h5.text-primary')
+            print(ii1.text)
+            iiok = 50 - int((ii1.text))
+            print(iiok)
+            ii11 = ii1.text
+            
+            if int(ii1.text) == 50:
+                 okwd = driver.find_element(By.CSS_SELECTOR, check0)
+                 driver.execute_script("arguments[0].click();", okwd)
+
+                 print('Da Click Withdraw!!!')
+            time.sleep(2)
+           
             
             refok = driver.find_element(By.CSS_SELECTOR,'#airdrop-block > div > div.text-break > span.text-primary.copy')
             print("ok2")
-            time.sleep(2)
-            for ii in range(ii1):
+            time.sleep(1)
+            for ii in range(iiok):
                 key = "0x" + secrets.token_hex(32)
                 address = Account.from_key(key).address
 
@@ -91,25 +109,28 @@ with open('data.csv') as f:
 
                 driver = webdriver.Chrome(executable_path="C:/Users/lehuy/Documents/cd/chromedriver.exe")
                 driver.get(refok.text) 
-                time.sleep(2)
+                time.sleep(1)
 
                 ip = driver.find_element(By.XPATH, check4)
                 ip.send_keys(address)
-                ip2 = driver.find_element(By.XPATH, check5)
-                time.sleep(3)
-                ip2.click()
+                time.sleep(1)
+                ip3 = driver.find_element(By.XPATH, check5)
+                driver.execute_script("arguments[0].click();", ip3)
+                time.sleep(2)
+                print("Dang Auto Lan Thu " + str(ii) + " Cho Wallet:" + str(swap))
                 #  Report Result
-
+            time.sleep(1)
             print('ok 3')
+            time.sleep(3)
             now2 = datetime.now()
             timenow2 = now2.strftime("%d/%m/%Y, %H:%M:%S")
-            if ii == ii1:
+            if ii == iiok:
                 f = open('log.txt',"a")
-                f.write('\n Success With ADDRESS : ' + str(swap) + '\n At Time: ' + str(timenow2))
+                f.write('\n'+str(ii11) +' With ADDRESS : ' + str(swap) + '|' + str(swap2) + '\n At Time: ' + str(timenow2))
                 f.close()
             else:
                 f = open('log.txt',"a")
-                f.write('\n Fail With ADDRESS : ' + str(swap) + '\n At Time: ' + str(timenow2))
+                f.write('\n' + str(ii11)+ ' With ADDRESS : ' + str(swap) + '|' + str(swap2) + '\n At Time: ' + str(timenow2))
                 f.close()
 
                 print("ok 4")
