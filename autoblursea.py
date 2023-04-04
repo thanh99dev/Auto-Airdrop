@@ -119,13 +119,14 @@ with open('data.csv') as f:
                                 wait(By.XPATH,check1) 
                                 ip = driver.find_element(By.XPATH, check3)
                                 ip.send_keys(address2)
-                                # time.sleep(2)
+                                time.sleep(1)
                                 ip3 = driver.find_element(By.XPATH, check1)
                                 time.sleep(1)
                                 driver.execute_script("arguments[0].click();", ip3)
-                                time.sleep(5)
+                                time.sleep(3)
                                 
                             except:
+                                driver.close()
                                 continue
                             break
                         print("Dang Auto Lan Thu " + str(ii) + " Cho Wallet:" + str(swap))
@@ -139,19 +140,27 @@ with open('data.csv') as f:
                     now2 = datetime.now()
                     timenow2 = now2.strftime("%d/%m/%Y, %H:%M:%S")
                     if iiok == 0:
-                        driver = webdriver.Chrome(executable_path="C:/Users/lehuy/Documents/cd/chromedriver.exe")
-                        driver.get(ref)
-                        wait(By.XPATH,check1)
-                        print('ok 4')
-                        cs1ok = driver.find_element(By.XPATH,check0)
-                        cs1ok.send_keys(swap)
-                        time.sleep(1)
-                        ip2ok = driver.find_element(By.XPATH, check1)
-                        driver.execute_script("arguments[0].click();", ip2ok)
-                        wait(By.CSS_SELECTOR,check4)
-                        okwdok = driver.find_element(By.CSS_SELECTOR, check4)
-                        time.sleep(1)
-                        driver.execute_script("arguments[0].click();", okwdok)
+                        while True:
+                            try:
+                                driver = webdriver.Chrome(executable_path="C:/Users/lehuy/Documents/cd/chromedriver.exe")
+                                driver.get(ref)
+                                wait(By.XPATH,check1)
+                                print('ok 4')
+                                cs1ok = driver.find_element(By.XPATH,check0)
+                                cs1ok.send_keys(swap)
+                                time.sleep(1)
+                                ip2ok = driver.find_element(By.XPATH, check1)
+                                driver.execute_script("arguments[0].click();", ip2ok)
+                                wait(By.CSS_SELECTOR,check4)
+                                okwdok = driver.find_element(By.CSS_SELECTOR, check4)
+                                time.sleep(1)
+                                driver.execute_script("arguments[0].click();", okwdok)
+                                time.sleep(3)
+                                confirm = driver.find_element(By.CSS_SELECTOR,'#airdrop-modal > div > div > div.modal-header > h5')
+                            except:
+                                driver.close()
+                                continue
+                            break
                         driver.quit()
                         print('Da Click Withdraw!!!')
                         f = open('log.txt',"a")

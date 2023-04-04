@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="https://ethereumshanghai.com/airdrop/submit" method="post" target="_top" name="address">
+        <input type="text" class="form-control" name="address" data-form-field="address" id="address">
+        <input type="hidden" name="return" value=""/>
+     </form>
+     <script>$("input[name='address']").submit(function () {
+var fname = $.trim($('#form-reg-fullname').val());
+$("input[name='return']").val("http://localhost:9000/app/fname");
+});
+</script>
+</body>
+</html>
